@@ -66,6 +66,19 @@ class UpdateScoreView(views.APIView):
         return Response(response_dict)
 
 
+class StatisticsView(views.APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request: Request):
+        player: User = request.user
+        score_entries = ScoreEntry.objects.filter(user_id=player.id)
+        serializer = ScoreEntrySerializer(score_entries, many=True)
+
+        status = 200 if score_entries.count() > 0 else 204
+
+        return Response(serializer.data, status=status)
+
+
 class GameView(views.APIView):
     permission_classes = ()
 

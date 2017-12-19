@@ -21,7 +21,7 @@ class ScoreEntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ScoreEntry
-        fields = ('user', 'best_score',)
+        fields = ('user', 'game', 'difficulty', 'best_score',)
         depth = 1
 
 
